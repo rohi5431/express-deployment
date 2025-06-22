@@ -63,7 +63,8 @@ app.get("/contact", function(req, res){
     res.render("contact");
 });
 
+const PORT = process.env.PORT || 7000;
 
-app.listen(7000, function(){
-    console.log("Server is running on port 7000");
+app.listen(PORT, function(){
+    console.log(`Server is running on port ${PORT}`);
 });
