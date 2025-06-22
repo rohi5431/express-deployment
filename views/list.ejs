@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
+</head>
+<body>
+    <%- include("partials/header") %>
+    <div class="main">
+    <div class="container text-center">
+        <h1>TODO LIST</h1>
+    </div>
+
+    <div class="box">
+        <% todos.forEach(function(todo) { %>
+            <form action="/delete" method="POST" class="todo-form">
+                <div class="item">
+                    <input type="hidden" name="task" value="<%= todo.task %>">
+                    <input type="checkbox" id="checkbox" onchange="this.form.submit()">
+                    <span class="task-text"><%= todo.task %> (<%= todo.priority %>)</span>
+                </div>
+            </form>
+        <% }); %>
+
+        <form action="/add" method="POST">
+            <input type="text" name="task" placeholder="Enter the task" required>
+            <select name="priority" id="priority">
+                <option value="low">Low</option>
+                <option value="medium">Mid</option>
+                <option value="high">High</option>
+            </select>
+            <button type="submit">+</button>
+        </form>
+    </div>
+    <% todos.forEach(function(todo) { %>
+    <div class="edit-item">
+        <span><%= todo.task %> (<%= todo.priority %>)</span>
+        <form action="/edit" method="POST" style="display: inline;">
+            <input type="hidden" name="oldTask" value="<%= todo.task %>">
+            <input type="text" name="newTask" placeholder="New Task" required>
+            <select name="newPriority" id="newPriority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+<% }); %>
+</div>
+
+<%- include("partials/footer") %>
