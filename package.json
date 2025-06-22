@@ -1,15 +1,17 @@
 {
   "name": "to_do_list_project",
   "version": "1.0.0",
-  "main": "script.js",
+  "description": "Todo list web app using Express and EJS",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Rohit Kumar",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^5.1.0",
-    "mongoose": "^7.8.7"
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
   }
 }
+
