@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TODO-LIST</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/script.js"></script>
 </head>
@@ -16,7 +16,7 @@
 
     <div class="box">
         <% todos.forEach(function(todo) { %>
-            <form action="/delete" method="POST" class="todo-form">
+            <form action="/delete?_method=DELETE" method="POST" class="todo-form">
                 <div class="item">
                     <input type="hidden" name="task" value="<%= todo.task %>">
                     <input type="checkbox" id="checkbox" onchange="this.form.submit()">
@@ -38,7 +38,7 @@
     <% todos.forEach(function(todo) { %>
     <div class="edit-item">
         <span><%= todo.task %> (<%= todo.priority %>)</span>
-        <form action="/edit" method="POST" style="display: inline;">
+        <form action="/edit?_method=PUT" method="POST" style="display: inline;">
             <input type="hidden" name="oldTask" value="<%= todo.task %>">
             <input type="text" name="newTask" placeholder="New Task" required>
             <select name="newPriority" id="newPriority">
