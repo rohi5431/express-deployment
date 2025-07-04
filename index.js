@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require('method-override');
 
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use(express.static("public"));
 
 let todos = [];
@@ -31,13 +33,7 @@ app.post("/add", function(req, res){
     res.redirect("/");
 });
 
-app.post("/delete", function(req, res){
-    const taskToDelete = req.body.task;
-    todos = todos.filter(todo => todo.task !== taskToDelete);
-    res.redirect("/");
-});
-
-app.post("/edit", function(req, res){
+app.put("/edit", function(req, res){
     const oldTask = req.body.oldTask;
     const newTask = req.body.newTask;
     const newPriority = req.body.newPriority;
@@ -52,6 +48,12 @@ app.post("/edit", function(req, res){
         }
     }
 
+    res.redirect("/");
+});
+
+app.delete("/delete", function(req, res){
+    const taskToDelete = req.body.task;
+    todos = todos.filter(todo => todo.task !== taskToDelete);
     res.redirect("/");
 });
 
