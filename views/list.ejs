@@ -19,8 +19,9 @@
             <form action="/delete?_method=DELETE" method="POST" class="todo-form">
                 <div class="item">
                     <input type="hidden" name="task" value="<%= todo.task %>">
-                    <input type="checkbox" id="checkbox" onchange="this.form.submit()">
+                    <input type="checkbox" id="checkbox"  onchange="toggleLine(this)">
                     <span class="task-text"><%= todo.task %> (<%= todo.priority %>)</span>
+                    <button type="submit" class="delete-btn" onchange="this.form.submit()">-</button>
                 </div>
             </form>
         <% }); %>

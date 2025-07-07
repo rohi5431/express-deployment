@@ -45,11 +45,12 @@ body{
     align-items: center;
     height: 25vh;
     padding: 20px;
-    width: 34vw;
+    width: 35vw;
     background: linear-gradient(0deg, #57c785 0%, #eddd53 100%);
     border-radius: 12px;
     flex-wrap: wrap;
     margin-top: 60px;
+    height: auto;
 }
 
 .box input{
@@ -167,6 +168,9 @@ input::placeholder{
     font-size: 1.2rem;
     padding: 8px 12px;
 
+}
+.item button{
+  font-size: 2rem;
 }
 .item input[type="checkbox"]{
     width: 0.8rem;
@@ -307,24 +311,52 @@ input::placeholder{
 .menu-icon {
     display: none;
 }
-
-@media (max-width: 992px) {
-   .container {
-      width: 35vw;
+@media screen and (max-width: 1245px){
+    .box{
+        width: 500px;  
     }
-    .box {
-      width: 45vw;
+    .box input{
+        padding: 8px;
+    }
+    #newPriority{
+        padding: 7px;
     }
 }
 
-/* Small tablets and phones */
+@media (max-width: 992px) {
+   .container {
+       width: 35vw;
+    }
+    .box{
+       width: 450px;
+    }
+    .edit-item{
+       width: 400px;
+    }
+    .edit-item button{
+       width: 35px;
+    }
+}
 @media (max-width: 768px) {
     .container {
-      width: 40vw;
+       width: 40vw;
     }
-    .box {
-      width: 50vw;
-      flex-direction: column;
+    .box{
+       width: 450px;
+       flex-direction: column;
+       height: auto;
+    }
+    .box input{
+       width: 100px;
+    }
+    #priority{
+       width: 80px;
+    }
+    .edit-item input{
+      width: 120px;
+    }
+    #newPriority{
+      width: 80px;
     }
     .contents {
        font-size: 1.3rem;
