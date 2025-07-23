@@ -12,22 +12,28 @@ app.use(express.static("public"));
 
 let task = [];
 
-app.get("/", function (req, res) {
+app.get("/", function (req, res){
     let tasksToShow = task;
 
-    if (req.query.priority) {
+    if(req.query.priority){
         const selected = req.query.priority;
-        tasksToShow = task.filter(item => item.priority === selected);
+        task.forEach(item => {
+        if(item.priority === selected){
+            tasksToShow.push(item);
+        }
+      });
     }
 
-    res.render("list", { todos: tasksToShow });
+    const editTask = req.query.edit; 
+
+    res.render("list", { todos: tasksToShow, editTask }); 
 });
 
-app.post("/add", function (req, res) {
+app.post("/add", function (req, res){
     const content = req.body.task;
     const level = req.body.priority || "low";
 
-    if (!content.trim()) {
+    if(!content.trim()){
         return res.status(400).send("Task cannot be empty.");
     }
 
@@ -40,16 +46,16 @@ app.post("/add", function (req, res) {
     res.redirect("/");
 });
 
-app.put("/edit", function (req, res) {
+app.put("/edit", function (req, res){
     const original = req.body.oldTask;
     const updated = req.body.newTask;
     const newLevel = req.body.newPriority;
 
-    if (!updated.trim()) {
+    if(!updated.trim()){
         return res.status(400).send("Updated task name is required.");
     }
 
-    for (let index = 0; index < task.length; index++) {
+    for(let index = 0; index < task.length; index++){
         if (task[index].task === original) {
             task[index].task = updated;
             task[index].priority = newLevel;
@@ -59,35 +65,37 @@ app.put("/edit", function (req, res) {
 
     const levelMap = { low: 1, medium: 2, high: 3 };
 
-    for (let index = 0; index < task.length - 1; index++) {
-        for (let j = 0; j < task.length - i - 1; j++) {
+    for(let i = 0; i < task.length - 1; i++){
+        for (let j = 0; j < task.length - i - 1; j++){
             const a = levelMap[task[j].priority];
             const b = levelMap[task[j + 1].priority];
 
-            if (a > b) {
-                [task[j], task[j + 1]] = [task[j + 1], task[j]];
+            if(a > b){
+               let temp = task[j];
+               task[j] = task[j + 1];
+               task[j + 1] = temp;
             }
         }
     }
-
+    // task.sort((a, b) => levelMap[a.priority] - levelMap[b.priority]);
     res.redirect("/");
 });
 
-app.delete("/delete", function (req, res) {
+app.delete("/delete", function (req, res){
     const toRemove = req.body.task;
     task = task.filter(item => item.task !== toRemove);
     res.redirect("/");
 });
 
-app.get("/about", function (req, res) {
+app.get("/about", function (req, res){
     res.render("about");
 });
 
-app.get("/contact", function (req, res) {
+app.get("/contact", function (req, res){
     res.render("contact");
 });
 
-app.listen(PORT, function () {
+app.listen(PORT, function (){
     console.log(`Server is running on port ${PORT}`);
 });
 

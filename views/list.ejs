@@ -15,13 +15,14 @@
     </div>
 
     <div class="box">
-        <% todos.forEach(function(todo) { %>
+        <% todos.forEach(function(todo,index) { %>
             <form action="/delete?_method=DELETE" method="POST" class="todo-form">
                 <div class="item">
                     <input type="hidden" name="task" value="<%= todo.task %>">
                     <input type="checkbox" id="checkbox"  onchange="toggleLine(this)">
                     <span class="task-text"><%= todo.task %> (<%= todo.priority %>)</span>
                     <button type="submit" class="delete-btn" onchange="this.form.submit()">-</button>
+                    <a href="/?edit=<%= todo.task %>"><button type="button">✏️</button></a>
                 </div>
             </form>
         <% }); %>
@@ -37,6 +38,7 @@
         </form>
     </div>
     <% todos.forEach(function(todo) { %>
+        <% if (editTask === todo.task) { %>
     <div class="edit-item">
         <span><%= todo.task %> (<%= todo.priority %>)</span>
         <form action="/edit?_method=PUT" method="POST" style="display: inline;">
@@ -47,9 +49,10 @@
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-            <button type="submit">Edit</button>
+            <button type="submit">⟳</button>
         </form>
     </div>
+<% } %>
 <% }); %>
 </div>
 
